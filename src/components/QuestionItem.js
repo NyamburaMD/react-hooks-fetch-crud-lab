@@ -11,7 +11,7 @@ function QuestionItem({ question, onDelete, onUpdate }) {
 
   function handleCorrectAnswerChange(event) {
     const newCorrectIndex = parseInt(event.target.value, id);
-    onUpdate(id, newCorrectIndex)
+    onUpdate(id, newCorrectIndex);
   }
 
   return (
@@ -20,7 +20,7 @@ function QuestionItem({ question, onDelete, onUpdate }) {
       <h5>Prompt: {prompt}</h5>
       <label>
         Correct Answer:
-        <select defaultValue={correctIndex}>{options}</select>
+        <select defaultValue={correctIndex} onChange={handleCorrectAnswerChange}>{options}</select>
       </label>
       <button>Delete Question</button>
     </li>
