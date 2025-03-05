@@ -13,7 +13,23 @@ function QuestionList() {
       fetch (`http://localhost:4000/questions/${id}`, {
         method: "DELETE",
       })
-      
+      function handleUpdateQuestion(id, newCorrectIndex) {
+        fetch(`http://localhost:4000/questions/${id}`, {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ correctIndex: newCorrectIndex }),
+        })
+          .then((response) => response.json())
+          .then((updatedQuestion) => {
+            setQuestions((prevQuestions) =>
+              prevQuestions.map((q) => (q.id === id ? updatedQuestion : q))
+            );
+          })
+          .catch((error) => console.error("Error updating question:", error));
+      }
+
     }
   return (
     <section>
