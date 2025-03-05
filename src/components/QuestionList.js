@@ -10,27 +10,37 @@ function QuestionList() {
       .catch((error) => console.error("Error fetching questions", error));
     }, []);
     function handleDeleteQuestion(id) {
-      fetch (`http://localhost:4000/questions/${id}`, {
+      fetch(`http://localhost:4000/questions/${id}`, {
         method: "DELETE",
       })
-      function handleUpdateQuestion(id, newCorrectIndex) {
-        fetch(`http://localhost:4000/questions/${id}`, {
-          method: "PATCH",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ correctIndex: newCorrectIndex }),
+        .then(() => {
+          setQuestions((prevQuestions) =>
+            prevQuestions.filter((q) => q.id !== id)
+          );
         })
-          .then((response) => response.json())
-          .then((updatedQuestion) => {
-            setQuestions((prevQuestions) =>
-              prevQuestions.map((q) => (q.id === id ? updatedQuestion : q))
-            );
-          })
-          .catch((error) => console.error("Error updating question:", error));
-      }
-
+        .catch((error) => console.error("Error deleting question:", error));
     }
+  
+
+
+    function handleUpdateQuestion(id, newCorrectIndex) {
+      fetch(`http://localhost:4000/questions/${id}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ correctIndex: newCorrectIndex }),
+      }) 
+        .then((response) => response.json())
+        .then((updatedQuestion) => {
+          setQuestions((prevQuestions) =>
+            prevQuestions.map((q) => (q.id === id ? updatedQuestion : q))
+          );
+        })
+        .catch((error) => console.error("Error updating question:", error));
+    }
+
+    
   return (
     <section>
       <h1>Quiz Questions</h1>
