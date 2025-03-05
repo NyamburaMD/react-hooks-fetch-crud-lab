@@ -1,6 +1,6 @@
 import React from "react";
 
-function QuestionItem({ question }) {
+function QuestionItem({ question, onDelete, onUpdate }) {
   const { id, prompt, answers, correctIndex } = question;
 
   const options = answers.map((answer, index) => (
@@ -8,6 +8,11 @@ function QuestionItem({ question }) {
       {answer}
     </option>
   ));
+
+  function handleCorrectAnswerChange(event) {
+    const newCorrectIndex = parseInt(event.target.value, id);
+    onUpdate(id, newCorrectIndex)
+  }
 
   return (
     <li>
