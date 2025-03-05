@@ -11,9 +11,10 @@ function QuestionForm(props) {
   });
 
   function handleChange(event) {
+    const {name, value} = event.target;
     setFormData({
       ...formData,
-      [event.target.name]: event.target.value,
+      [name]: name === "correctIndex" ? Number(value) : value,
     });
   }
 
