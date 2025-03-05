@@ -22,7 +22,7 @@ function QuestionItem({ question, onDelete, onUpdate }) {
         Correct Answer:
         <select defaultValue={correctIndex} onChange={handleCorrectAnswerChange}>{options}</select>
       </label>
-      <button>Delete Question</button>
+      <button onClick={() => onDelete(id)}>Delete Question</button>
     </li>
   );
 }
